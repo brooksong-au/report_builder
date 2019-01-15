@@ -15,9 +15,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-Route::group(array('namespace' => 'Report', 'prefix' => 'report'), function()
-{
-    Route::get('/runall', array('as'=>'runall', 'uses'=> 'ReportController@runAll'));
-    Route::get('/apikeys', array('as'=>'apikeys', 'uses'=> 'ReportController@apiKeys'));
-    Route::get('/download', array('as'=>'download', 'uses'=> 'ReportController@download'));
+$router->group(['namespace' => 'Report', 'prefix' => 'report'], function () use ($router){
+    $router->get('/runall', ['as' => 'runall', 'uses' => 'ReportController@runAll']);
+    $router->get('/apikeys', ['as' => 'apikeys', 'uses' => 'ReportController@apiKeys']);
+    $router->get('/download', ['as' => 'download', 'uses' => 'ReportController@download']);
 });

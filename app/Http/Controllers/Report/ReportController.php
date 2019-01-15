@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use TxTextControl\ReportingCloud\ReportingCloud;
 use TxTextControl\ReportingCloud\Stdlib\ConsoleUtils;
 
@@ -98,7 +98,7 @@ class ReportController extends Controller
 
     }
 
-    public function download()
+    public function download(Request $request)
     {
         $destinationFilename = storage_path() . '/report/test_template_merged.pdf';
 
@@ -108,7 +108,7 @@ class ReportController extends Controller
         ]);
 
 
-        $mergeData = Input::get();
+        $mergeData = $request->input();
 
         $data = $reportingCloud->mergeDocument($mergeData, 'PDF', 'sample_invoice.tx');
         file_put_contents($destinationFilename, $data[0]);
