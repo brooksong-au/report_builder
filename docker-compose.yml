@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  web-report_builder:
+    container_name: report_builder
+    build:
+      context: .
+    ports:
+      - "443:80"
+      - "80:80"
+    expose:
+      - "9000"
+    networks:
+      - local
+    hostname: localdocker
+    volumes:
+      - .:/app
+    environment:
+      XDEBUG_CONFIG: "remote_host=10.254.254.254"
+      PHP_IDE_CONFIG: "serverName=reportbuilder.dev"
+      PHP_XDEBUG_ENABLED: 1
+networks:
+  local:
+    external: true
